@@ -1,26 +1,28 @@
 package pareto
 
 import (
-	"fmt"
 	"sort"
 )
 
-func New(attr1 []float64, attr2 []float64) (*ParetoFrontierGenerator, error) {
+func New(input map[string][2]float64) (*ParetoFrontierGenerator, error) {
 
-	if len(attr1) != len(attr2) {
-		return nil, fmt.Errorf("Wrong input")
-	}
-	points := make([]Point, len(attr1))
-	for i := 0; i < len(attr1); i++ {
-		points[i].x1 = attr1[i]
-		points[i].x2 = attr2[i]
+	// if len(attr1) != len(attr2) {
+	// 	return nil, fmt.Errorf("Wrong input")
+	// }
+	var i int
+	points := make([]Point, len(input))
+	for k, v := range input {
+		points[i].x1 = v[0]
+		points[i].x2 = v[1]
 		points[i].isFront = true
+		points[i].Id = k
+		i++
 	}
+
 	return &ParetoFrontierGenerator{points: points}, nil
 }
 
 func (p *ParetoFrontierGenerator) Exec() []Point {
-	fmt.Println(p.points)
 	return getFront(p.points)
 }
 
@@ -32,7 +34,6 @@ func getFront(points []Point) []Point {
 	ret := make([]Point, 0)
 	for idx1 := 1; idx1 < len(points); idx1++ {
 		for idx2 := 0; idx2 < idx1; idx2++ {
-			fmt.Printf("Compare %v, %v\n", points[idx1].x2, points[idx2].x2)
 			if points[idx2].x2 < points[idx1].x2 {
 				points[idx1].isFront = false
 				break

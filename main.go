@@ -45,9 +45,18 @@ func main() {
 	// 	Point{x1: 5, x2: 20},
 	// }
 
-	attr1 := []float64{1, 2, 3, 4, 5}
-	attr2 := []float64{8, 7, 11, 2, 20}
+	// attr1 := []float64{1, 2, 3, 4, 5}
+	// attr2 := []float64{8, 7, 11, 2, 20}
 
-	p, _ := pareto.New(attr1, attr2)
-	fmt.Println(p)
+	m := map[string][2]float64{
+		"node1": [2]float64{1, 8},
+		"node2": [2]float64{2, 7},
+		"node3": [2]float64{3, 11},
+		"node4": [2]float64{4, 2},
+		"node5": [2]float64{5, 20},
+	}
+
+	p, _ := pareto.New(m)
+
+	fmt.Println(p.Exec())
 }
