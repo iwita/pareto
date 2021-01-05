@@ -1,5 +1,11 @@
 package main
 
+import (
+	"fmt"
+
+	"github.com/iwita/pareto/pareto"
+)
+
 // func NewSolver(items ...Objectives) *ParetoSolver {
 // 	if len(items) <= 1 {
 // 		fmt.Println("Not a multi-objective problem")
@@ -39,8 +45,9 @@ func main() {
 	// 	Point{x1: 5, x2: 20},
 	// }
 
-	attr1 := []int{1, 2, 3, 4, 5}
-	attr2 := []int{8, 7, 11, 2, 20}
+	attr1 := []float64{1, 2, 3, 4, 5}
+	attr2 := []float64{8, 7, 11, 2, 20}
 
-	p := pareto.New(attr1, attr2)
+	p, _ := pareto.New(attr1, attr2)
+	fmt.Println(p)
 }

@@ -27,7 +27,7 @@ func getFront(points []Point) []Point {
 	sort.Slice(points, func(i, j int) bool {
 		return points[i].x1 < points[j].x1
 	})
-	fmt.Println(points)
+	//fmt.Println(points)
 	ret := make([]Point, 0)
 	for idx1 := 1; idx1 < len(points); idx1++ {
 		for idx2 := 0; idx2 < idx1; idx2++ {
