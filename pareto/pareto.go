@@ -20,6 +20,7 @@ func New(attr1 []float64, attr2 []float64) (*ParetoFrontierGenerator, error) {
 }
 
 func (p *ParetoFrontierGenerator) Exec() []Point {
+	fmt.Println(p.points)
 	return getFront(p.points)
 }
 
