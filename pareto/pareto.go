@@ -4,11 +4,8 @@ import (
 	"sort"
 )
 
-func New(input map[string][2]float64) (*ParetoFrontierGenerator, error) {
+func New(input map[int32][2]float64) (*ParetoFrontierGenerator, error) {
 
-	// if len(attr1) != len(attr2) {
-	// 	return nil, fmt.Errorf("Wrong input")
-	// }
 	var i int
 	points := make([]Point, len(input))
 	for k, v := range input {
@@ -22,16 +19,16 @@ func New(input map[string][2]float64) (*ParetoFrontierGenerator, error) {
 	return &ParetoFrontierGenerator{points: points}, nil
 }
 
-func (p *ParetoFrontierGenerator) Exec() []Point {
+func (p *ParetoFrontierGenerator) Exec() []int32 {
 	return getFront(p.points)
 }
 
-func getFront(points []Point) []Point {
+func getFront(points []Point) []int32 {
 	sort.Slice(points, func(i, j int) bool {
 		return points[i].x1 < points[j].x1
 	})
 	//fmt.Println(points)
-	ret := make([]Point, 0)
+	ret := make([]int32, 1)
 	for idx1 := 1; idx1 < len(points); idx1++ {
 		for idx2 := 0; idx2 < idx1; idx2++ {
 			if points[idx2].x2 < points[idx1].x2 {
@@ -42,7 +39,7 @@ func getFront(points []Point) []Point {
 	}
 	for _, p := range points {
 		if p.isFront == true {
-			ret = append(ret, p)
+			ret = append(ret, p.Id)
 		}
 	}
 	return ret
